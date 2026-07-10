@@ -43,8 +43,8 @@ export function ProductSidebar() {
   return (
     <aside className="flex h-full flex-col overflow-y-auto rounded-2xl bg-white/85 shadow-lg backdrop-blur-md">
       {/* ── Title + Category tabs ─────────────────────── */}
-      <div className="px-4 pb-2 pt-4">
-        <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-slate-500">
+      <div className="px-5 pb-3 pt-5">
+        <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider text-slate-500">
           Products
         </h2>
         <CategoryTabs
@@ -54,7 +54,7 @@ export function ProductSidebar() {
       </div>
 
       {/* ── Product grid ──────────────────────────────── */}
-      <div className="grid flex-1 grid-cols-1 gap-3 px-4 pb-4 animate-fadeIn">
+      <div className="grid flex-1 grid-cols-1 gap-3 px-5 pb-5 animate-fadeIn">
         {filteredProducts.map((product) => (
           <ProductCard
             key={product.id}

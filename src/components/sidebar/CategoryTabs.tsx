@@ -37,6 +37,7 @@ const tabs: TabDef[] = [
   { label: 'Monitors', value: 'monitors' },
   { label: 'Keyboards & Mice', value: 'keyboards' },
   { label: 'Computers', value: 'computers' },
+  { label: 'Lamps', value: 'lamps' },
   { label: 'Accessories', value: 'accessories' },
   { label: 'Plants', value: 'plants' },
 ];
@@ -52,10 +53,10 @@ export function CategoryTabs({ selectedCategory, onSelect }: CategoryTabsProps) 
         <button
           key={tab.value}
           onClick={() => onSelect(tab.value)}
-          className={`whitespace-nowrap rounded-full px-3 py-1.5 text-sm font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 ${
+          className={`whitespace-nowrap rounded-full px-3.5 py-1.5 text-sm font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 ${
             selectedCategory === tab.value
-              ? 'bg-blue-600 text-white'
-              : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+              ? 'bg-blue-600 text-white shadow-sm'
+              : 'bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-800'
           }`}
         >
           {tab.label}

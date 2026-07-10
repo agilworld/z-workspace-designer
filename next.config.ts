@@ -10,6 +10,13 @@ const nextConfig: NextConfig = {
         pathname: "/uploads/**",
         search: "",
       },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+        port: "",
+        pathname: "/**",
+        search: "",
+      },
     ],
   },
 };

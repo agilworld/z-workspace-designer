@@ -10,6 +10,7 @@
 
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
 import { useDragPosition } from '@/hooks/useDragPosition';
 import { Tooltip } from '@/components/ui/Tooltip';
@@ -36,6 +37,8 @@ export function WorkspaceItem({
   canvasRef,
   snapToGrid = false,
 }: WorkspaceItemProps) {
+  const [imageError, setImageError] = useState(false);
+
   // ── Drag ──────────────────────────────────────────────────────────────
 
   const { isDragging, position, handleMouseDown, handleTouchStart } =
@@ -91,15 +94,27 @@ export function WorkspaceItem({
         aria-grabbed={isDragging}
       >
         {/* ── Product image ─────────────────────────── */}
-        <Image
-          src={product.image}
-          alt={product.name}
-          fill
-          unoptimized
-          className="pointer-events-none"
-          style={{ objectFit: 'contain' }}
-          draggable={false}
-        />
+        {imageError ? (
+          <div className="flex h-full w-full items-center justify-center bg-slate-100">
+            <span
+              className="select-none text-lg font-bold text-slate-300"
+              aria-hidden
+            >
+              {product.name.charAt(0).toUpperCase()}
+            </span>
+          </div>
+        ) : (
+          <Image
+            src={product.image}
+            alt={product.name}
+            fill
+            unoptimized
+            className="pointer-events-none"
+            style={{ objectFit: 'contain' }}
+            draggable={false}
+            onError={() => setImageError(true)}
+          />
+        )}
 
         {/* ── Selection label (bottom overlay) ──────── */}
         {isSelected && (

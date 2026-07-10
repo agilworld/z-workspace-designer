@@ -75,7 +75,9 @@ export function Layout({ header, sidebar, canvas, summary }: LayoutProps) {
           </div>
 
           {/* ── Canvas ──────────────────────────────────── */}
-          <div className="relative flex-1 overflow-hidden">{canvas}</div>
+          <div className="relative flex-1 overflow-hidden bg-gradient-to-br from-slate-50 to-slate-100/50">
+            {canvas}
+          </div>
 
           {/* ── Summary ─────────────────────────────────── */}
           <div className="w-80 shrink-0 border-l border-slate-200">

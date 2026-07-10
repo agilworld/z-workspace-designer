@@ -20,25 +20,25 @@ export function Header() {
       <div className="flex items-center justify-between px-6 py-3">
         {/* ── Branding ───────────────────────────────── */}
         <div className="flex items-baseline gap-3">
-          <span className="text-lg font-bold text-slate-900">monis.rent</span>
-          <span className="hidden text-sm text-slate-500 sm:inline">
+          <span className="text-xl font-bold tracking-tight text-slate-900">monis.rent</span>
+          <span className="hidden h-4 w-px bg-slate-300 sm:block" />
+          <span className="hidden text-sm font-medium text-slate-500 sm:inline">
             Workspace Designer
           </span>
         </div>
 
         {/* ── Actions ────────────────────────────────── */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           {/* Snap-to-grid toggle */}
           <button
             type="button"
             onClick={toggleSnap}
-            className={`flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 ${
+            className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 ${
               snapToGrid
-                ? 'bg-blue-100 text-blue-700 hover:bg-blue-200'
+                ? 'bg-blue-50 text-blue-700 shadow-sm hover:bg-blue-100'
                 : 'bg-slate-100 text-slate-500 hover:bg-slate-200'
             }`}
           >
-            <span className="sr-only">Snap to grid</span>
             <svg
               className="h-3.5 w-3.5"
               viewBox="0 0 16 16"
@@ -54,7 +54,7 @@ export function Header() {
               <line x1="1" y1="5" x2="15" y2="5" />
               <line x1="1" y1="11" x2="15" y2="11" />
             </svg>
-            Snap: <span className="font-semibold">{snapToGrid ? 'ON' : 'OFF'}</span>
+            Snap <span className="font-semibold">{snapToGrid ? 'ON' : 'OFF'}</span>
           </button>
 
           {/* Clear All button */}
@@ -62,7 +62,7 @@ export function Header() {
             type="button"
             onClick={clearAll}
             disabled={isEmpty}
-            className="group flex items-center gap-1.5 rounded-full px-2 py-1 text-sm text-slate-500 transition-all duration-200 hover:text-red-500 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
+            className="group flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium text-slate-500 transition-all duration-200 hover:bg-red-50 hover:text-red-600 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
           >
             Clear All
             {!isEmpty && (

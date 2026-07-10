@@ -107,7 +107,7 @@ export function useDragPosition(
       document.addEventListener('mousemove', handleMouseMove);
       document.addEventListener('mouseup', handleMouseUp);
     },
-    [canvasRef, onPositionChange],
+    [canvasRef, onPositionChange, snapToGrid],
   );
 
   // ── Touch handlers ─────────────────────────────────────────────────────
@@ -161,7 +161,7 @@ export function useDragPosition(
       document.addEventListener('touchmove', handleTouchMove, { passive: false });
       document.addEventListener('touchend', handleTouchEnd);
     },
-    [canvasRef, onPositionChange],
+    [canvasRef, onPositionChange, snapToGrid],
   );
 
   return {

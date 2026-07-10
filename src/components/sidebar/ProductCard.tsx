@@ -34,7 +34,7 @@ export function ProductCard({ product, isInWorkspace, onAdd }: ProductCardProps)
   const [imageError, setImageError] = useState(false);
 
   return (
-    <div className="cursor-pointer rounded-xl border border-slate-200 bg-white/90 p-3 shadow-sm transition-all duration-200 hover:border-blue-300 hover:shadow-md">
+    <div className="group cursor-pointer rounded-xl border border-slate-200 bg-white/90 p-3 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-lg">
       {/* ── Product image ──────────────────────────────── */}
       <div className="relative mb-2 h-20 w-full overflow-hidden rounded-lg">
         {imageError ? (
