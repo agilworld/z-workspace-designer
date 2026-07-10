@@ -42,7 +42,7 @@ npm start
 
 ## Live Demo
 
-[Link to be added after deployment]
+[https://monis-workspace-designer-five.vercel.app](https://monis-workspace-designer-five.vercel.app)
 
 ## Product Data
 
