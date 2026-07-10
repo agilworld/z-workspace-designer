@@ -16,10 +16,10 @@ export function SummaryPanel() {
   const { state, removeItem, itemCount } = useWorkspace();
 
   return (
-    <aside className="flex h-full flex-col bg-white/85 backdrop-blur-md">
+    <aside className="flex h-full flex-col rounded-2xl bg-white/85 shadow-lg backdrop-blur-md">
       {/* ── Header ─────────────────────────────────── */}
       <div className="flex items-center gap-2 border-b border-slate-200 px-4 py-3">
-        <h2 className="text-base font-semibold text-slate-800">Your Workspace</h2>
+        <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-500">Your Workspace</h2>
         {itemCount > 0 && (
           <span className="inline-flex items-center justify-center rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-medium text-emerald-700">
             {itemCount}

@@ -18,10 +18,17 @@ export interface DragPosition {
   y: number;
 }
 
+const GRID_SIZE = 20;
+
+function snap(value: number): number {
+  return Math.round(value / GRID_SIZE) * GRID_SIZE;
+}
+
 export function useDragPosition(
   initialPosition: DragPosition,
   canvasRef: React.RefObject<HTMLElement | null>,
   onPositionChange: (position: DragPosition) => void,
+  snapToGrid: boolean = false,
 ) {
   const [isDragging, setIsDragging] = useState(false);
   const [position, setPosition] = useState<DragPosition>(initialPosition);
@@ -76,8 +83,13 @@ export function useDragPosition(
         const rawX = ev.clientX - bounds.left - stateRef.current.offset.x;
         const rawY = ev.clientY - bounds.top - stateRef.current.offset.y;
 
-        const clampedX = Math.max(0, Math.min(rawX, bounds.width - 1));
-        const clampedY = Math.max(0, Math.min(rawY, bounds.height - 1));
+        let clampedX = Math.max(0, Math.min(rawX, bounds.width - 1));
+        let clampedY = Math.max(0, Math.min(rawY, bounds.height - 1));
+
+        if (snapToGrid) {
+          clampedX = snap(clampedX);
+          clampedY = snap(clampedY);
+        }
 
         stateRef.current.position = { x: clampedX, y: clampedY };
         setPosition({ x: clampedX, y: clampedY });
@@ -125,8 +137,13 @@ export function useDragPosition(
         const rawX = t.clientX - bounds.left - stateRef.current.offset.x;
         const rawY = t.clientY - bounds.top - stateRef.current.offset.y;
 
-        const clampedX = Math.max(0, Math.min(rawX, bounds.width - 1));
-        const clampedY = Math.max(0, Math.min(rawY, bounds.height - 1));
+        let clampedX = Math.max(0, Math.min(rawX, bounds.width - 1));
+        let clampedY = Math.max(0, Math.min(rawY, bounds.height - 1));
+
+        if (snapToGrid) {
+          clampedX = snap(clampedX);
+          clampedY = snap(clampedY);
+        }
 
         stateRef.current.position = { x: clampedX, y: clampedY };
         setPosition({ x: clampedX, y: clampedY });

@@ -47,7 +47,7 @@ export function SummaryItem({ item, product, onRemove }: SummaryItemProps) {
       <button
         type="button"
         onClick={() => onRemove(item.instanceId)}
-        className="shrink-0 text-slate-400 transition-colors hover:text-red-500"
+        className="shrink-0 rounded-full p-1 text-slate-400 transition-all duration-200 hover:bg-red-50 hover:text-red-500 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2"
         aria-label={`Remove ${product.name}`}
       >
         ✕

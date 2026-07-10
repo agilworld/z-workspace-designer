@@ -6,13 +6,11 @@ import { SummaryPanel } from "@/components/summary/SummaryPanel";
 
 export default function Home() {
   return (
-    <>
-      <Header />
-      <Layout>
-        <ProductSidebar />
-        <WorkspaceCanvas />
-        <SummaryPanel />
-      </Layout>
-    </>
+    <Layout
+      header={<Header />}
+      sidebar={<ProductSidebar />}
+      canvas={<WorkspaceCanvas />}
+      summary={<SummaryPanel />}
+    />
   );
 }
