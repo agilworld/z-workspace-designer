@@ -1,13 +1,69 @@
 /**
- * PriceBreakdown — totals, discounts, and tax display.
+ * PriceBreakdown — totals, savings, and pricing disclaimers.
  *
- * @status scaffold
+ * @status implemented
  */
 
-export function PriceBreakdown() {
+import type { WorkspaceItem } from '@/types';
+import { calculateWeeklyTotal, calculateMonthlyTotal, formatPrice } from '@/lib/pricing';
+
+interface PriceBreakdownProps {
+  /** The workspace items to compute pricing for. */
+  items: WorkspaceItem[];
+}
+
+export function PriceBreakdown({ items }: PriceBreakdownProps) {
+  if (items.length === 0) return null;
+
+  const weeklyTotal = calculateWeeklyTotal(items);
+  const monthlyTotal = calculateMonthlyTotal(items);
+
+  // Calculate savings percentage when monthly is cheaper than weekly × 4
+  const weeklyTimesFour = weeklyTotal * 4;
+  const savingsPct =
+    monthlyTotal > 0 && monthlyTotal < weeklyTimesFour
+      ? Math.round((1 - monthlyTotal / weeklyTimesFour) * 100)
+      : 0;
+
   return (
-    <div className="border-t border-border px-4 py-3 text-sm text-text-secondary">
-      PriceBreakdown — placeholder
+    <div className="space-y-2 border-t border-slate-100 pt-3">
+      {/* Section title */}
+      <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+        Price Summary
+      </p>
+
+      {/* Weekly total */}
+      <div className="flex items-center justify-between">
+        <span className="text-sm text-slate-600">Weekly</span>
+        <span className="text-sm font-semibold text-slate-800">
+          {formatPrice(weeklyTotal)}
+        </span>
+      </div>
+
+      {/* Monthly total */}
+      <div className="flex items-center justify-between">
+        <span className="text-sm text-slate-600">Monthly</span>
+        <span className="text-sm font-semibold text-slate-800">
+          {formatPrice(monthlyTotal)}
+        </span>
+      </div>
+
+      {/* Savings indicator */}
+      {savingsPct > 0 && (
+        <div className="rounded-lg bg-emerald-50 px-3 py-2 text-center text-xs font-medium text-emerald-700">
+          Save {savingsPct}% with monthly rental
+        </div>
+      )}
+
+      {/* Delivery note */}
+      <p className="text-xs italic text-slate-400">
+        Delivery fee calculated at checkout
+      </p>
+
+      {/* Pricing disclaimer */}
+      <p className="text-xs text-amber-600">
+        Prices are estimates — final pricing at monis.rent checkout
+      </p>
     </div>
   );
 }

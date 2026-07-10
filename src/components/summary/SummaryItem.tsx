@@ -1,13 +1,57 @@
 /**
  * SummaryItem — a single line item in the rental summary.
  *
- * @status scaffold
+ * @status implemented
  */
 
-export function SummaryItem() {
+import Image from 'next/image';
+import type { WorkspaceItem, Product } from '@/types';
+import { formatPrice } from '@/lib/pricing';
+
+interface SummaryItemProps {
+  /** The workspace item instance to display. */
+  item: WorkspaceItem;
+  /** The resolved product for this item. */
+  product: Product;
+  /** Called when the user clicks the remove button. */
+  onRemove: (instanceId: string) => void;
+}
+
+export function SummaryItem({ item, product, onRemove }: SummaryItemProps) {
   return (
-    <div className="flex items-center justify-between py-2 text-sm text-text-primary">
-      <span>SummaryItem — placeholder</span>
+    <div className="flex items-center gap-3 border-b border-slate-100 py-2 last:border-b-0">
+      {/* Thumbnail */}
+      <Image
+        src={product.image}
+        alt={product.name}
+        width={40}
+        height={40}
+        className="h-10 w-10 rounded-lg object-cover"
+        unoptimized
+      />
+
+      {/* Name + weekly price */}
+      <div className="flex-1 min-w-0">
+        <p className="truncate text-sm font-medium text-slate-800">
+          {product.name}
+          {item.quantity > 1 && (
+            <span className="ml-1 text-xs text-slate-400">&times;{item.quantity}</span>
+          )}
+        </p>
+        <p className="text-xs font-medium text-emerald-600">
+          {formatPrice(product.estimatedPriceWeekly * item.quantity)}/wk
+        </p>
+      </div>
+
+      {/* Remove button */}
+      <button
+        type="button"
+        onClick={() => onRemove(item.instanceId)}
+        className="shrink-0 text-slate-400 transition-colors hover:text-red-500"
+        aria-label={`Remove ${product.name}`}
+      >
+        ✕
+      </button>
     </div>
   );
 }
