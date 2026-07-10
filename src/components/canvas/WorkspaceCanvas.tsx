@@ -19,7 +19,7 @@ import { useRef, useEffect, useCallback } from 'react';
 import { useWorkspace } from '@/hooks/useWorkspace';
 import { getProductById } from '@/data/products';
 import { CanvasGrid } from './CanvasGrid';
-import { CanvasDesk } from './CanvasDesk';
+import { CanvasScene } from './CanvasScene';
 import { EmptyState } from './EmptyState';
 import { WorkspaceItem } from './WorkspaceItem';
 
@@ -86,7 +86,7 @@ export function WorkspaceCanvas() {
       onClick={handleCanvasClick}
     >
       <CanvasGrid />
-      <CanvasDesk />
+      <CanvasScene />
 
       {/* ── Canvas content: items or empty state ────────────── */}
       {isEmpty ? (

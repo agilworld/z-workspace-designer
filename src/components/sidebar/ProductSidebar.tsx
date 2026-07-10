@@ -41,10 +41,10 @@ export function ProductSidebar() {
         : productsByCategory[selectedCategory as ProductCategory] ?? [];
 
   return (
-    <aside className="flex h-full flex-col overflow-y-auto rounded-2xl bg-white/85 shadow-lg backdrop-blur-md">
+    <aside className="flex h-full flex-col overflow-y-auto rounded-3xl bg-white/70 shadow-lg shadow-blue-100/20 backdrop-blur-xl">
       {/* ── Title + Category tabs ─────────────────────── */}
-      <div className="px-5 pb-3 pt-5">
-        <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider text-slate-500">
+      <div className="px-4 pb-2 pt-4">
+        <h2 className="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-400">
           Products
         </h2>
         <CategoryTabs
@@ -54,7 +54,7 @@ export function ProductSidebar() {
       </div>
 
       {/* ── Product grid ──────────────────────────────── */}
-      <div className="grid flex-1 grid-cols-1 gap-3 px-5 pb-5 animate-fadeIn">
+      <div className="grid flex-1 grid-cols-1 gap-2.5 px-4 pb-4 animate-fadeIn">
         {filteredProducts.map((product) => (
           <ProductCard
             key={product.id}

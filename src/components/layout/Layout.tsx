@@ -1,16 +1,18 @@
 /**
- * Layout — three-column app shell.
+ * Layout — three-column app shell with title area and bottom CTA.
  *
  * Structure:
  *   Header (sticky top)
- *   ├── Sidebar (w-72, overflow-y-auto, glass)
+ *   Title area ("Design Your Workspace!")
+ *   ├── Sidebar (w-64, overflow-y-auto, glass)
  *   ├── Canvas  (flex-1, relative)
- *   └── Summary (w-80, overflow-y-auto, glass)
+ *   └── Summary (w-72, overflow-y-auto, glass)
+ *   Bottom CTA ("Ready to Rent?")
  *
  * On screens smaller than 1024px, shows a mobile-friendly message
  * directing users to visit on desktop for the full experience.
  *
- * @status implemented
+ * @status updated
  */
 
 interface LayoutProps {
@@ -22,9 +24,13 @@ interface LayoutProps {
   canvas: React.ReactNode;
   /** Right panel — rental summary & pricing. */
   summary: React.ReactNode;
+  /** Title area rendered above the three columns. */
+  title?: React.ReactNode;
+  /** Bottom CTA area rendered below the three columns. */
+  cta?: React.ReactNode;
 }
 
-export function Layout({ header, sidebar, canvas, summary }: LayoutProps) {
+export function Layout({ header, sidebar, canvas, summary, title, cta }: LayoutProps) {
   return (
     <>
       {/* ── Mobile message (<1024px) ─────────────────── */}
@@ -66,24 +72,45 @@ export function Layout({ header, sidebar, canvas, summary }: LayoutProps) {
 
       {/* ── Desktop layout (≥1024px) ─────────────────── */}
       <div className="hidden lg:flex h-screen flex-col overflow-hidden">
+        {/* ── Decorative background shapes ──────────── */}
+        <div className="pointer-events-none fixed inset-0 overflow-hidden">
+          <div className="absolute -top-40 -right-20 h-[500px] w-[500px] rounded-full bg-blue-200/30 blur-3xl" />
+          <div className="absolute -bottom-32 -left-20 h-[400px] w-[400px] rounded-full bg-cyan-200/20 blur-3xl" />
+          <div className="absolute top-1/3 right-1/4 h-[300px] w-[300px] rounded-full bg-blue-100/20 blur-2xl" />
+        </div>
+
         {header}
 
-        <div className="flex flex-1 overflow-hidden">
+        {/* ── Title area ─────────────────────────────────── */}
+        {title && (
+          <div className="relative z-10 border-b border-white/30 bg-white/30 px-6 py-4 text-center backdrop-blur-sm">
+            {title}
+          </div>
+        )}
+
+        <div className="relative z-10 flex flex-1 overflow-hidden">
           {/* ── Sidebar ─────────────────────────────────── */}
-          <div className="w-72 shrink-0 border-r border-slate-200">
+          <div className="w-64 shrink-0 p-3 pr-1.5">
             {sidebar}
           </div>
 
           {/* ── Canvas ──────────────────────────────────── */}
-          <div className="relative flex-1 overflow-hidden bg-gradient-to-br from-slate-50 to-slate-100/50">
+          <div className="relative flex-1 overflow-hidden rounded-3xl my-3 bg-white/40 shadow-inner shadow-blue-100/20 backdrop-blur-sm">
             {canvas}
           </div>
 
           {/* ── Summary ─────────────────────────────────── */}
-          <div className="w-80 shrink-0 border-l border-slate-200">
+          <div className="w-72 shrink-0 p-3 pl-1.5">
             {summary}
           </div>
         </div>
+
+        {/* ── Bottom CTA area ────────────────────────────── */}
+        {cta && (
+          <div className="relative z-10 border-t border-white/30 bg-white/30 px-6 py-4 backdrop-blur-sm">
+            {cta}
+          </div>
+        )}
       </div>
     </>
   );

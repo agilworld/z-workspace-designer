@@ -12,9 +12,9 @@ export function CanvasGrid() {
     <div
       className="pointer-events-none absolute inset-0"
       style={{
-        backgroundImage: 'radial-gradient(circle, #cbd5e1 1px, transparent 1px)',
-        backgroundSize: '20px 20px',
-        opacity: 0.6,
+        backgroundImage: 'radial-gradient(circle, #93c5fd 0.5px, transparent 0.5px)',
+        backgroundSize: '24px 24px',
+        opacity: 0.3,
       }}
     />
   );

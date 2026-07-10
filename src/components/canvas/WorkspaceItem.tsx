@@ -74,8 +74,8 @@ export function WorkspaceItem({
         className={`
           absolute cursor-grab select-none
           ${isDragging ? 'cursor-grabbing opacity-80' : ''}
-          ${isSelected ? 'ring-2 ring-blue-400' : ''}
-          animate-fade-in-scale overflow-hidden rounded-md bg-white shadow-sm transition-all duration-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2
+          ${isSelected ? 'ring-2 ring-blue-400 ring-offset-1' : ''}
+          animate-fade-in-scale overflow-hidden rounded-xl bg-white/90 shadow-sm shadow-blue-100/20 transition-all duration-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-1
           ${!isDragging ? 'hover:scale-[1.02]' : ''}
         `}
         style={{
@@ -118,7 +118,7 @@ export function WorkspaceItem({
 
         {/* ── Selection label (bottom overlay) ──────── */}
         {isSelected && (
-          <div className="absolute bottom-0 left-0 right-0 bg-black/50 px-1 py-0.5 text-center text-[10px] leading-tight text-white">
+          <div className="absolute bottom-0 left-0 right-0 rounded-b-xl bg-gradient-to-t from-black/60 to-transparent px-1 pb-1 pt-3 text-center text-[10px] leading-tight text-white">
             {product.name}
           </div>
         )}
@@ -126,7 +126,7 @@ export function WorkspaceItem({
         {/* ── Remove button (visible when selected) ─── */}
         {isSelected && (
           <button
-            className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300"
+            className="absolute -right-2.5 -top-2.5 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-[10px] text-white shadow-sm hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300"
             onClick={handleRemove}
             aria-label={`Remove ${product.name}`}
             type="button"

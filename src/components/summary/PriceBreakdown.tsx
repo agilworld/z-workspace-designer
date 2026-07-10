@@ -26,43 +26,43 @@ export function PriceBreakdown({ items }: PriceBreakdownProps) {
       : 0;
 
   return (
-    <div className="space-y-2 border-t border-slate-100 pt-3">
+    <div className="space-y-2 pt-2">
       {/* Section title */}
-      <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+      <p className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">
         Price Summary
       </p>
 
       {/* Weekly total */}
       <div className="flex items-center justify-between">
-        <span className="text-sm text-slate-600">Weekly</span>
-        <span className="text-sm font-semibold text-slate-800">
+        <span className="text-xs text-slate-500">Weekly</span>
+        <span className="text-xs font-semibold text-slate-700">
           {formatPrice(weeklyTotal)}
         </span>
       </div>
 
       {/* Monthly total */}
       <div className="flex items-center justify-between">
-        <span className="text-sm text-slate-600">Monthly</span>
-        <span className="text-sm font-semibold text-slate-800">
+        <span className="text-xs text-slate-500">Monthly</span>
+        <span className="text-xs font-semibold text-slate-700">
           {formatPrice(monthlyTotal)}
         </span>
       </div>
 
       {/* Savings indicator */}
       {savingsPct > 0 && (
-        <div className="rounded-lg bg-emerald-50 px-3 py-2 text-center text-xs font-medium text-emerald-700">
+        <div className="rounded-lg bg-emerald-50/80 px-2.5 py-1.5 text-center text-[10px] font-medium text-emerald-700">
           Save {savingsPct}% with monthly rental
         </div>
       )}
 
       {/* Delivery note */}
-      <p className="text-xs italic text-slate-400">
+      <p className="text-[10px] italic text-slate-400">
         Delivery fee calculated at checkout
       </p>
 
       {/* Pricing disclaimer */}
-      <p className="text-xs text-amber-600">
-        Prices are estimates — final pricing at monis.rent checkout
+      <p className="text-[10px] text-amber-600">
+        Prices are estimates — final pricing at checkout
       </p>
     </div>
   );

@@ -11,14 +11,14 @@
 export function EmptyState() {
   return (
     <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
-      <span className="text-6xl" role="img" aria-label="Art palette">
-        🎨
+      <span className="text-5xl" role="img" aria-label="Workspace">
+        🖥️
       </span>
-      <h2 className="mt-4 text-xl font-semibold text-slate-600">
-        Design Your Workspace
+      <h2 className="mt-3 text-lg font-semibold text-slate-500">
+        Start Building Your Setup
       </h2>
       <p className="mt-1 text-sm text-slate-400">
-        Select a desk from the sidebar to get started!
+        Add items from the sidebar to design your dream workspace!
       </p>
     </div>
   );
