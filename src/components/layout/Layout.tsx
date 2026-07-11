@@ -95,7 +95,7 @@ export function Layout({ header, sidebar, canvas, summary, title, cta }: LayoutP
           </div>
 
           {/* ── Canvas ──────────────────────────────────── */}
-          <div className="relative flex-1 overflow-hidden rounded-3xl my-3 bg-white/40 shadow-inner shadow-blue-100/20 backdrop-blur-sm">
+          <div className="relative flex flex-col flex-1 overflow-hidden rounded-3xl my-3 bg-white/40 shadow-inner shadow-blue-100/20 backdrop-blur-sm">
             {canvas}
           </div>
 

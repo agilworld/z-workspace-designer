@@ -82,7 +82,7 @@ export function WorkspaceCanvas() {
   return (
     <div
       ref={canvasRef}
-      className="relative flex-1 overflow-hidden bg-slate-50"
+      className="relative h-full w-full overflow-hidden"
       onClick={handleCanvasClick}
     >
       <CanvasGrid />
