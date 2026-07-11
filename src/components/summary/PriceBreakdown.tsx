@@ -28,14 +28,14 @@ export function PriceBreakdown({ items }: PriceBreakdownProps) {
   return (
     <div className="space-y-2 pt-2">
       {/* Section title */}
-      <p className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">
+      <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
         Price Summary
       </p>
 
       {/* Weekly total */}
       <div className="flex items-center justify-between">
         <span className="text-xs text-slate-500">Weekly</span>
-        <span className="text-xs font-semibold text-slate-700">
+        <span className="text-sm font-bold text-slate-700">
           {formatPrice(weeklyTotal)}
         </span>
       </div>
@@ -43,7 +43,7 @@ export function PriceBreakdown({ items }: PriceBreakdownProps) {
       {/* Monthly total */}
       <div className="flex items-center justify-between">
         <span className="text-xs text-slate-500">Monthly</span>
-        <span className="text-xs font-semibold text-slate-700">
+        <span className="text-sm font-bold text-slate-700">
           {formatPrice(monthlyTotal)}
         </span>
       </div>

@@ -5,6 +5,7 @@
  */
 
 import Image from 'next/image';
+import { X } from 'lucide-react';
 import type { WorkspaceItem, Product } from '@/types';
 import { formatPrice } from '@/lib/pricing';
 
@@ -19,14 +20,14 @@ interface SummaryItemProps {
 
 export function SummaryItem({ item, product, onRemove }: SummaryItemProps) {
   return (
-    <div className="flex items-center gap-2 rounded-lg border-b border-white/30 px-2 py-1.5 transition-colors last:border-b-0 hover:bg-white/50">
+    <div className="flex items-center gap-3 rounded-lg border-b border-white/30 px-3 py-2 transition-colors last:border-b-0 hover:bg-white/50 animate-fade-in-scale">
       {/* Thumbnail */}
-      <div className="relative h-8 w-8 shrink-0 overflow-hidden rounded-lg bg-slate-100">
+      <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-lg bg-slate-100">
         <Image
           src={product.image}
           alt={product.name}
-          width={32}
-          height={32}
+          width={40}
+          height={40}
           className="h-full w-full object-cover"
           unoptimized
         />
@@ -34,13 +35,13 @@ export function SummaryItem({ item, product, onRemove }: SummaryItemProps) {
 
       {/* Name + weekly price */}
       <div className="flex-1 min-w-0">
-        <p className="truncate text-xs font-medium text-slate-700">
+        <p className="truncate text-sm font-semibold text-slate-700">
           {product.name}
           {item.quantity > 1 && (
-            <span className="ml-1 text-[10px] text-slate-400">&times;{item.quantity}</span>
+            <span className="ml-1 text-xs text-slate-400">&times;{item.quantity}</span>
           )}
         </p>
-        <p className="text-[11px] font-semibold text-emerald-600">
+        <p className="text-sm font-bold text-emerald-600">
           {formatPrice(product.estimatedPriceWeekly * item.quantity)}/wk
         </p>
       </div>
@@ -49,10 +50,10 @@ export function SummaryItem({ item, product, onRemove }: SummaryItemProps) {
       <button
         type="button"
         onClick={() => onRemove(item.instanceId)}
-        className="shrink-0 rounded-full p-1 text-slate-300 transition-all duration-200 hover:bg-red-50 hover:text-red-500 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-1"
+        className="shrink-0 rounded-full p-1 text-slate-300 transition-all duration-200 hover:bg-red-50 hover:text-red-500 active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 focus:ring-offset-white"
         aria-label={`Remove ${product.name}`}
       >
-        ✕
+        <X size={14} />
       </button>
     </div>
   );

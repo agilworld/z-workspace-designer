@@ -10,7 +10,7 @@
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white">
+    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/90 glass-strong">
       <div className="flex items-center justify-between px-6 py-3">
         {/* ── Branding ───────────────────────────────── */}
         <div className="flex items-baseline gap-3">

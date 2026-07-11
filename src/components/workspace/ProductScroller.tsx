@@ -12,6 +12,7 @@
 
 import { useState, useMemo, useEffect } from 'react';
 import Image from 'next/image';
+import { ChevronUp, Check } from 'lucide-react';
 import { useWorkspace } from '@/hooks/useWorkspace';
 import { products } from '@/data/products';
 import type { Product, ProductCategory, AccessorySlotKey } from '@/types';
@@ -93,7 +94,7 @@ function ProductScrollerCard({ product }: ProductScrollerCardProps) {
     <button
       type="button"
       onClick={handleClick}
-      className={`flex shrink-0 flex-col items-center gap-1.5 rounded-xl border-2 p-2.5 transition-all duration-200 w-[120px] ${
+      className={`flex shrink-0 flex-col items-center gap-1.5 rounded-xl border-2 p-2.5 transition-all duration-200 w-[120px] active:scale-[0.98] ${
         isActive
           ? 'border-blue-400 bg-blue-50 shadow-md'
           : 'border-slate-200 bg-white hover:border-slate-300 hover:shadow-md'
@@ -111,18 +112,18 @@ function ProductScrollerCard({ product }: ProductScrollerCardProps) {
       </div>
 
       {/* Name */}
-      <p className="w-full truncate text-[11px] font-medium text-slate-700 text-center">
+      <p className="w-full truncate text-sm font-semibold text-slate-700 text-center">
         {product.name}
       </p>
 
       {/* Price */}
-      <p className="text-[10px] font-semibold text-emerald-600">
+      <p className="text-sm font-bold text-emerald-600">
         ${product.estimatedPriceWeekly}/wk
       </p>
 
       {/* Active indicator */}
       {isActive && (
-        <span className="text-[10px] font-medium text-blue-600">✓ Selected</span>
+        <span className="flex items-center gap-1 text-xs font-semibold text-blue-600"><Check size={14} /> Selected</span>
       )}
     </button>
   );
@@ -176,15 +177,13 @@ export function ProductScroller() {
         type="button"
         onClick={toggleExpanded}
         aria-expanded={isExpanded}
-        className="flex w-full items-center justify-between px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-50 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400"
+        className="flex w-full items-center justify-between px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-50 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-white"
       >
         <span className="flex items-center gap-2">
           <span>Products</span>
           <span className="text-[10px] text-slate-400">{filteredProducts.length} items</span>
         </span>
-        <span className={`transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`}>
-          ▲
-        </span>
+        <ChevronUp size={14} className={`transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`} />
       </button>
 
       {/* ── Collapsible content ─────────────────────────── */}

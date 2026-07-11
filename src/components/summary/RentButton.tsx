@@ -4,6 +4,8 @@
  * @status updated — rebranded to Z.Interactive
  */
 
+import { ArrowRight } from 'lucide-react';
+
 interface RentButtonProps {
   /** Disable the button when the workspace is empty. */
   disabled: boolean;
@@ -25,17 +27,17 @@ export function RentButton({ disabled }: RentButtonProps) {
         <button
           type="button"
           disabled={disabled}
-          className={`w-full rounded-2xl px-6 py-3 font-semibold text-white shadow-lg shadow-blue-200/40 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 ${
+          className={`w-full rounded-2xl px-6 py-3 text-base font-bold text-white shadow-lg shadow-blue-200/40 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-white ${
             disabled
               ? 'cursor-not-allowed bg-blue-400 opacity-50 shadow-none'
               : 'cursor-pointer bg-blue-600 hover:bg-blue-700 hover:shadow-xl hover:shadow-blue-200/50 active:scale-[0.98]'
           }`}
         >
-          Rent Your Setup! →
+          Rent Your Setup! <ArrowRight size={16} className="inline" />
         </button>
       </a>
 
-      <p className="text-center text-[10px] text-slate-400">Powered by Z.Interactive</p>
+      <p className="text-center text-xs text-slate-400">Powered by Z.Interactive</p>
     </div>
   );
 }

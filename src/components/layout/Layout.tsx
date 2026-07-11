@@ -19,6 +19,7 @@
 'use client';
 
 import { useState } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface LayoutProps {
   /** Sticky header rendered at the top of the viewport. */
@@ -115,10 +116,10 @@ export function Layout({ header, workspace, summary, title, scroller }: LayoutPr
               className="flex w-full items-center justify-center gap-1 py-2 text-xs text-slate-500 hover:bg-slate-50 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400"
               aria-label={summaryCollapsed ? 'Expand summary panel' : 'Collapse summary panel'}
             >
-              <span className={`transition-transform duration-200 ${summaryCollapsed ? '' : 'rotate-180'}`}>
-                →
+              <span className="transition-transform duration-200">
+                {summaryCollapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
               </span>
-              {summaryCollapsed ? '' : <span className="text-[10px] uppercase tracking-wider text-slate-400">Summary</span>}
+              {summaryCollapsed ? '' : <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Summary</span>}
             </button>
             {!summaryCollapsed && summary}
           </div>

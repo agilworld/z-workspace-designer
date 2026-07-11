@@ -9,11 +9,11 @@ export default function Home() {
     <Layout
       header={<Header />}
       title={
-        <div>
+        <div className="space-y-1">
           <h1 className="text-3xl font-bold text-slate-900">
             Design Your Workspace!
           </h1>
-          <p className="text-base text-slate-500">
+          <p className="text-lg font-medium text-slate-500">
             Create Your Perfect Setup!
           </p>
         </div>

@@ -11,6 +11,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import { X, Maximize2 } from 'lucide-react';
 import { useWorkspace } from '@/hooks/useWorkspace';
 import { getProductById } from '@/data/products';
 import { BoxPlaceholder } from './BoxPlaceholder';
@@ -41,8 +42,8 @@ export function DeskBox() {
 
   if (!product || !deskSlot) {
     return (
-      <div className="flex flex-col rounded-2xl bg-white shadow-lg border border-slate-200 p-4">
-        <h3 className="mb-2 text-sm font-semibold text-slate-700">Desk</h3>
+      <div className="flex flex-col rounded-2xl bg-white shadow-md hover:shadow-lg border border-slate-200 hover:border-slate-300 p-5 transition-all duration-300">
+        <h3 className="mb-3 text-base font-bold text-slate-700">Desk</h3>
         <div className="flex-1">
           <BoxPlaceholder
             icon="🪑"
@@ -56,17 +57,17 @@ export function DeskBox() {
 
   return (
     <>
-      <div className="flex flex-col rounded-2xl bg-white shadow-lg border border-slate-200 p-4">
+      <div className="flex flex-col rounded-2xl bg-white shadow-md hover:shadow-lg border border-slate-200 hover:border-slate-300 p-5 transition-all duration-300">
         {/* Header row */}
-        <div className="flex items-center justify-between mb-2">
-          <h3 className="text-sm font-semibold text-slate-700">Desk</h3>
+        <div className="flex items-center justify-between mb-3">
+          <h3 className="text-base font-bold text-slate-700">Desk</h3>
           <button
             type="button"
             onClick={handleRemove}
-            className="rounded-full p-1 text-slate-300 transition-all hover:bg-red-50 hover:text-red-500"
+            className="rounded-full p-1 text-slate-300 transition-all duration-200 hover:bg-red-50 hover:text-red-500 active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 focus:ring-offset-white"
             aria-label="Remove desk"
           >
-            ✕
+            <X size={14} />
           </button>
         </div>
 
@@ -90,24 +91,24 @@ export function DeskBox() {
               e.stopPropagation();
               setModalOpen(true);
             }}
-            className="absolute right-1.5 top-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-white/80 text-xs text-slate-600 opacity-0 shadow-sm transition-opacity group-hover:opacity-100 hover:bg-white"
+            className="absolute right-1.5 top-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-white/80 text-xs text-slate-600 opacity-0 shadow-sm transition-all duration-200 group-hover:opacity-100 hover:bg-white hover:scale-110 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-white"
             aria-label={`View ${product.name} fullscreen`}
           >
-            ↗
+            <Maximize2 size={12} />
           </button>
         </div>
 
         {/* Product name */}
-        <p className="mb-2 text-xs font-medium text-slate-700 truncate">{product.name}</p>
+        <p className="mb-3 text-sm font-semibold text-slate-700 truncate">{product.name}</p>
 
         {/* Size variants */}
         <div className="space-y-1.5">
-          <p className="text-[11px] font-medium text-slate-500">Size:</p>
+          <p className="text-xs font-semibold text-slate-500">Size:</p>
           <div className="flex flex-col gap-1.5">
             {SIZE_VARIANTS.map((v) => (
               <label
                 key={v.value}
-                className={`flex cursor-pointer items-center gap-2 rounded-lg px-2.5 py-1.5 text-xs transition-all ${
+                className={`flex cursor-pointer items-center gap-2 rounded-lg px-2.5 py-1.5 text-sm font-medium transition-all ${
                   deskSlot.sizeVariant === v.value
                     ? 'bg-blue-50 text-blue-700 ring-1 ring-blue-300'
                     : 'bg-slate-50 text-slate-600 hover:bg-slate-100'

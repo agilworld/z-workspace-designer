@@ -10,6 +10,7 @@
 'use client';
 
 import Image from 'next/image';
+import { X } from 'lucide-react';
 import { useWorkspace } from '@/hooks/useWorkspace';
 import { getProductById } from '@/data/products';
 import { PriceBreakdown } from '@/components/summary/PriceBreakdown';
@@ -113,7 +114,7 @@ export function SummaryPanel() {
       </div>
 
       {/* ── Content ────────────────────────────────── */}
-      <div className="flex-1 overflow-y-auto px-3 py-2 scrollbar-smooth">
+      <div className="flex-1 overflow-y-auto px-4 py-3 scrollbar-smooth">
         {isEmpty ? (
           /* Empty state */
           <div className="flex flex-col items-center justify-center pt-8 text-center">
@@ -132,15 +133,15 @@ export function SummaryPanel() {
             {slotItems.map((item) => (
               <div
                 key={item.slotKey}
-                className="flex items-center gap-2 rounded-lg border-b border-slate-200 px-2 py-1.5 transition-colors last:border-b-0 hover:bg-slate-50"
+                className="flex items-center gap-3 rounded-lg border-b border-slate-200 px-3 py-2 transition-colors last:border-b-0 hover:bg-slate-50"
               >
                 {/* Thumbnail */}
-                <div className="relative h-8 w-8 shrink-0 overflow-hidden rounded-lg bg-slate-100">
+                <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-lg bg-slate-100">
                   <Image
                     src={item.product.image}
                     alt={item.product.name}
-                    width={32}
-                    height={32}
+                    width={40}
+                    height={40}
                     className="h-full w-full object-cover"
                     unoptimized
                   />
@@ -148,15 +149,15 @@ export function SummaryPanel() {
 
                 {/* Name + variant + price */}
                 <div className="flex-1 min-w-0">
-                  <p className="truncate text-xs font-medium text-slate-700">
+                  <p className="truncate text-sm font-semibold text-slate-700">
                     {item.product.name}
                   </p>
                   {item.variant && (
-                    <p className="text-[10px] text-slate-400">
+                    <p className="text-xs text-slate-400">
                       {item.variant.replace('-', ' ')}
                     </p>
                   )}
-                  <p className="text-[11px] font-semibold text-emerald-600">
+                  <p className="text-sm font-bold text-emerald-600">
                     {formatPrice(item.product.estimatedPriceWeekly)}/wk
                   </p>
                 </div>
@@ -165,10 +166,10 @@ export function SummaryPanel() {
                 <button
                   type="button"
                   onClick={() => clearSlot(item.slotKey)}
-                  className="shrink-0 rounded-full p-1 text-slate-300 transition-all duration-200 hover:bg-red-50 hover:text-red-500 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-1"
+                  className="shrink-0 rounded-full p-1 text-slate-300 transition-all duration-200 hover:bg-red-50 hover:text-red-500 active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 focus:ring-offset-white"
                   aria-label={`Remove ${item.product.name}`}
                 >
-                  ✕
+                  <X size={14} />
                 </button>
               </div>
             ))}

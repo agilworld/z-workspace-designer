@@ -26,8 +26,8 @@ const ACCESSORY_SLOTS: AccessorySlotDef[] = [
 
 export function AccessoryBox() {
   return (
-    <div className="flex flex-col rounded-2xl bg-white shadow-lg border border-slate-200 p-4">
-      <h3 className="mb-3 text-sm font-semibold text-slate-700">Accessories</h3>
+    <div className="flex flex-col rounded-2xl bg-white shadow-md hover:shadow-lg border border-slate-200 hover:border-slate-300 p-5 transition-all duration-300">
+      <h3 className="mb-3 text-base font-bold text-slate-700">Accessories</h3>
       <div className="flex flex-col gap-2">
         {ACCESSORY_SLOTS.map((def) => (
           <AccessorySlot
