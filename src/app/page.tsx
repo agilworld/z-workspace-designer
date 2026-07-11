@@ -1,8 +1,7 @@
 import { Header } from "@/components/layout/Header";
 import { Layout } from "@/components/layout/Layout";
-import { RentCta } from "@/components/layout/RentCta";
-import { ProductSidebar } from "@/components/sidebar/ProductSidebar";
-import { WorkspaceCanvas } from "@/components/canvas/WorkspaceCanvas";
+import { WorkspaceArea } from "@/components/workspace/WorkspaceArea";
+import { ProductScroller } from "@/components/workspace/ProductScroller";
 import { SummaryPanel } from "@/components/summary/SummaryPanel";
 
 export default function Home() {
@@ -19,10 +18,9 @@ export default function Home() {
           </p>
         </div>
       }
-      sidebar={<ProductSidebar />}
-      canvas={<WorkspaceCanvas />}
+      workspace={<WorkspaceArea />}
       summary={<SummaryPanel />}
-      cta={<RentCta />}
+      scroller={<ProductScroller />}
     />
   );
 }

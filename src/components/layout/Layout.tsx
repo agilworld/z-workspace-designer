@@ -1,36 +1,34 @@
 /**
- * Layout — three-column app shell with title area and bottom CTA.
+ * Layout — slot-based workspace layout with header, title, workspace+summary,
+ * and bottom product scroller.
  *
  * Structure:
  *   Header (sticky top)
  *   Title area ("Design Your Workspace!")
- *   ├── Sidebar (w-64, overflow-y-auto, glass)
- *   ├── Canvas  (flex-1, relative)
- *   └── Summary (w-72, overflow-y-auto, glass)
- *   Bottom CTA ("Ready to Rent?")
+ *   ├── WorkspaceArea (flex-1, three boxes)
+ *   └── SummaryPanel (w-72, glass)
+ *   ProductScroller (horizontal scroll at bottom)
  *
  * On screens smaller than 1024px, shows a mobile-friendly message
  * directing users to visit on desktop for the full experience.
  *
- * @status updated
+ * @status updated — slot-based layout
  */
 
 interface LayoutProps {
   /** Sticky header rendered at the top of the viewport. */
   header: React.ReactNode;
-  /** Left panel — product catalog / palette. */
-  sidebar: React.ReactNode;
-  /** Center panel — the interactive workspace canvas. */
-  canvas: React.ReactNode;
+  /** The workspace area (DeskBox, ChairBox, AccessoryBox). */
+  workspace: React.ReactNode;
   /** Right panel — rental summary & pricing. */
   summary: React.ReactNode;
-  /** Title area rendered above the three columns. */
+  /** Title area rendered above the workspace. */
   title?: React.ReactNode;
-  /** Bottom CTA area rendered below the three columns. */
-  cta?: React.ReactNode;
+  /** Bottom scroller area (ProductScroller). */
+  scroller?: React.ReactNode;
 }
 
-export function Layout({ header, sidebar, canvas, summary, title, cta }: LayoutProps) {
+export function Layout({ header, workspace, summary, title, scroller }: LayoutProps) {
   return (
     <>
       {/* ── Mobile message (<1024px) ─────────────────── */}
@@ -58,7 +56,7 @@ export function Layout({ header, sidebar, canvas, summary, title, cta }: LayoutP
           </p>
 
           <p className="text-xs text-slate-400">
-            Drag, arrange, and rent your dream workspace with monis.rent
+            Pick your desk, chair, and accessories — then rent it all with monis.rent
           </p>
 
           {/* Decorative dots */}
@@ -88,27 +86,23 @@ export function Layout({ header, sidebar, canvas, summary, title, cta }: LayoutP
           </div>
         )}
 
+        {/* ── Main content: Workspace + Summary ──────────── */}
         <div className="relative z-10 flex flex-1 overflow-hidden">
-          {/* ── Sidebar ─────────────────────────────────── */}
-          <div className="w-64 shrink-0 p-3 pr-1.5">
-            {sidebar}
-          </div>
-
-          {/* ── Canvas ──────────────────────────────────── */}
-          <div className="relative flex flex-col flex-1 overflow-hidden rounded-3xl my-3 bg-white/40 shadow-inner shadow-blue-100/20 backdrop-blur-sm">
-            {canvas}
+          {/* ── Workspace Area ──────────────────────────── */}
+          <div className="flex-1 p-4 overflow-y-auto">
+            {workspace}
           </div>
 
           {/* ── Summary ─────────────────────────────────── */}
-          <div className="w-72 shrink-0 p-3 pl-1.5">
+          <div className="w-72 shrink-0 p-4 pl-0">
             {summary}
           </div>
         </div>
 
-        {/* ── Bottom CTA area ────────────────────────────── */}
-        {cta && (
-          <div className="relative z-10 border-t border-white/30 bg-white/30 px-6 py-4 backdrop-blur-sm">
-            {cta}
+        {/* ── Product Scroller (bottom) ──────────────────── */}
+        {scroller && (
+          <div className="relative z-10 border-t border-white/30 bg-white/30 px-6 py-3 backdrop-blur-sm">
+            {scroller}
           </div>
         )}
       </div>

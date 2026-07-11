@@ -9,7 +9,8 @@
 
 import { useContext, useCallback } from 'react';
 import { WorkspaceStateContext, WorkspaceDispatchContext } from '@/context/WorkspaceContext';
-import type { Product } from '@/types';
+import { getProductById } from '@/data/products';
+import type { Product, DeskSlot, ChairSlot, SlotKey, AccessorySlotKey } from '@/types';
 
 export function useWorkspace() {
   const state = useContext(WorkspaceStateContext);
@@ -66,9 +67,67 @@ export function useWorkspace() {
     dispatch({ type: 'TOGGLE_SNAP' });
   }, [dispatch]);
 
+  // ── Slot-based actions ──────────────────────────────────────────────
+
+  const setDesk = useCallback(
+    (product: Product, sizeVariant: DeskSlot['sizeVariant']) => {
+      dispatch({ type: 'SET_DESK', product, sizeVariant });
+    },
+    [dispatch],
+  );
+
+  const setChair = useCallback(
+    (product: Product, colorVariant: ChairSlot['colorVariant']) => {
+      dispatch({ type: 'SET_CHAIR', product, colorVariant });
+    },
+    [dispatch],
+  );
+
+  const setAccessory = useCallback(
+    (slot: AccessorySlotKey, product: Product | null) => {
+      dispatch({ type: 'SET_ACCESSORY', slot, product });
+    },
+    [dispatch],
+  );
+
+  const clearSlot = useCallback(
+    (slot: SlotKey) => {
+      dispatch({ type: 'CLEAR_SLOT', slot });
+    },
+    [dispatch],
+  );
+
   // ---------------------------------------------------------------------------
   // Computed values
   // ---------------------------------------------------------------------------
+
+  /** Get the Product object for a given slot, or null if empty. */
+  const getSlotProduct = useCallback(
+    (slot: SlotKey): Product | null => {
+      if (slot === 'desk' || slot === 'chair') {
+        const s = state.slots[slot];
+        return s ? getProductById(s.productId) ?? null : null;
+      }
+      const s = state.slots[slot];
+      if (!s?.productId) return null;
+      return getProductById(s.productId) ?? null;
+    },
+    [state.slots],
+  );
+
+  /** Count of filled slots. */
+  const filledSlotCount = useCallback((): number => {
+    let count = 0;
+    if (state.slots.desk) count++;
+    if (state.slots.chair) count++;
+    if (state.slots.monitor.productId) count++;
+    if (state.slots.lamp.productId) count++;
+    if (state.slots.keyboard.productId) count++;
+    if (state.slots.mouse.productId) count++;
+    if (state.slots.plant.productId) count++;
+    if (state.slots.mousepad.productId) count++;
+    return count;
+  }, [state.slots]);
 
   return {
     state,
@@ -81,6 +140,14 @@ export function useWorkspace() {
     replaceItem,
     undo,
     toggleSnap,
+    // ── Slot-based ──
+    setDesk,
+    setChair,
+    setAccessory,
+    clearSlot,
+    getSlotProduct,
+    filledSlotCount,
+    slots: state.slots,
     itemCount: state.items.length,
     isEmpty: state.items.length === 0,
     canUndo: state.undoStack.length > 0,

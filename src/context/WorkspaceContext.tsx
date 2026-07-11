@@ -8,17 +8,37 @@
 'use client';
 
 import React, { createContext, useReducer, type ReactNode } from 'react';
-import type { Product, WorkspaceItem, WorkspaceState, WorkspaceAction, UndoAction } from '@/types';
+import type {
+  Product,
+  WorkspaceItem,
+  WorkspaceState,
+  WorkspaceAction,
+  WorkspaceSlots,
+  UndoAction,
+  AccessorySlotKey,
+} from '@/types';
 
 // ---------------------------------------------------------------------------
 // Initial state
 // ---------------------------------------------------------------------------
+
+const initialSlots: WorkspaceSlots = {
+  desk: null,
+  chair: null,
+  monitor: { productId: null },
+  lamp: { productId: null },
+  keyboard: { productId: null },
+  mouse: { productId: null },
+  plant: { productId: null },
+  mousepad: { productId: null },
+};
 
 const initialState: WorkspaceState = {
   items: [],
   selectedItemId: null,
   undoStack: [],
   snapToGrid: false,
+  slots: initialSlots,
 };
 
 // ---------------------------------------------------------------------------
@@ -121,6 +141,122 @@ export function workspaceReducer(state: WorkspaceState, action: WorkspaceAction)
       return {
         ...state,
         snapToGrid: !state.snapToGrid,
+      };
+    }
+
+    // ── Slot-based actions ──────────────────────────────────────────
+
+    case 'SET_DESK': {
+      const productId = action.product.id;
+      return {
+        ...state,
+        items: state.items.some((i) => i.productId === productId)
+          ? state.items
+          : [
+              ...state.items,
+              {
+                instanceId: crypto.randomUUID(),
+                productId,
+                position: { ...action.product.defaultPosition },
+                quantity: 1,
+              },
+            ],
+        slots: {
+          ...state.slots,
+          desk: { productId, sizeVariant: action.sizeVariant },
+        },
+      };
+    }
+
+    case 'SET_CHAIR': {
+      const productId = action.product.id;
+      return {
+        ...state,
+        items: state.items.some((i) => i.productId === productId)
+          ? state.items
+          : [
+              ...state.items,
+              {
+                instanceId: crypto.randomUUID(),
+                productId,
+                position: { ...action.product.defaultPosition },
+                quantity: 1,
+              },
+            ],
+        slots: {
+          ...state.slots,
+          chair: { productId, colorVariant: action.colorVariant },
+        },
+      };
+    }
+
+    case 'SET_ACCESSORY': {
+      const slotKey = action.slot as AccessorySlotKey;
+      const currentSlot = state.slots[slotKey];
+
+      // If product is null, do nothing extra for items
+      if (!action.product) {
+        return {
+          ...state,
+          slots: {
+            ...state.slots,
+            [slotKey]: { productId: null },
+          },
+        };
+      }
+
+      const productId = action.product.id;
+      return {
+        ...state,
+        items: state.items.some((i) => i.productId === productId)
+          ? state.items
+          : [
+              ...state.items,
+              {
+                instanceId: crypto.randomUUID(),
+                productId,
+                position: { ...action.product.defaultPosition },
+                quantity: 1,
+              },
+            ],
+        slots: {
+          ...state.slots,
+          [slotKey]: { productId },
+        },
+      };
+    }
+
+    case 'CLEAR_SLOT': {
+      const slotKey = action.slot;
+      // For desk and chair, set to null; for accessories, set productId to null
+      if (slotKey === 'desk' || slotKey === 'chair') {
+        // Also remove the item from the items array
+        const currentSlot = state.slots[slotKey];
+        const productIdToRemove = currentSlot?.productId;
+        return {
+          ...state,
+          items: productIdToRemove
+            ? state.items.filter((i) => i.productId !== productIdToRemove)
+            : state.items,
+          slots: {
+            ...state.slots,
+            [slotKey]: null,
+          },
+        };
+      }
+
+      // Accessory slot
+      const accessoryKey = slotKey as AccessorySlotKey;
+      const productIdToRemove = state.slots[accessoryKey]?.productId;
+      return {
+        ...state,
+        items: productIdToRemove
+          ? state.items.filter((i) => i.productId !== productIdToRemove)
+          : state.items,
+        slots: {
+          ...state.slots,
+          [accessoryKey]: { productId: null },
+        },
       };
     }
 
