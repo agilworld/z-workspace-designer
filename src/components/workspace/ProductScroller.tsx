@@ -1,16 +1,16 @@
 /**
  * ProductScroller — horizontal scrolling product list at the bottom
- * with category tab filtering.
+ * with category tab filtering. Collapsible with localStorage persistence.
  *
  * Shows products filtered by category tabs. Clicking a card adds it to the
  * appropriate slot based on its category.
  *
- * @status updated — added category tabs
+ * @status updated — collapsible with localStorage toggle
  */
 
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import Image from 'next/image';
 import { useWorkspace } from '@/hooks/useWorkspace';
 import { products } from '@/data/products';
@@ -133,6 +133,23 @@ function ProductScrollerCard({ product }: ProductScrollerCardProps) {
 // ---------------------------------------------------------------------------
 
 export function ProductScroller() {
+  // Collapsible state persisted in localStorage
+  const [isExpanded, setIsExpanded] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('scroller-expanded') !== 'false';
+    }
+    return true;
+  });
+
+  // Persist to localStorage on change
+  useEffect(() => {
+    localStorage.setItem('scroller-expanded', String(isExpanded));
+  }, [isExpanded]);
+
+  const toggleExpanded = () => {
+    setIsExpanded((prev) => !prev);
+  };
+
   // Derive unique visible categories from products that have a slot mapping
   const visibleCategories = useMemo(() => {
     const cats = new Set<ProductCategory>();
@@ -154,40 +171,65 @@ export function ProductScroller() {
 
   return (
     <div className="w-full">
-      {/* ── Category tabs ────────────────────────────── */}
-      <div className="flex gap-2 mb-3">
-        <button
-          type="button"
-          onClick={() => setActiveCategory('all')}
-          className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${
-            activeCategory === 'all'
-              ? 'bg-blue-600 text-white'
-              : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-          }`}
-        >
-          All
-        </button>
-        {visibleCategories.map((cat) => (
-          <button
-            key={cat}
-            type="button"
-            onClick={() => setActiveCategory(cat)}
-            className={`rounded-full px-3 py-1 text-xs font-medium capitalize transition-colors ${
-              activeCategory === cat
-                ? 'bg-blue-600 text-white'
-                : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-            }`}
-          >
-            {cat}
-          </button>
-        ))}
-      </div>
+      {/* ── Toggle bar ──────────────────────────────────── */}
+      <button
+        type="button"
+        onClick={toggleExpanded}
+        aria-expanded={isExpanded}
+        className="flex w-full items-center justify-between px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-50 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400"
+      >
+        <span className="flex items-center gap-2">
+          <span>Products</span>
+          <span className="text-[10px] text-slate-400">{filteredProducts.length} items</span>
+        </span>
+        <span className={`transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`}>
+          ▲
+        </span>
+      </button>
 
-      {/* ── Scroller cards ───────────────────────────── */}
-      <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-smooth">
-        {filteredProducts.map((product) => (
-          <ProductScrollerCard key={product.id} product={product} />
-        ))}
+      {/* ── Collapsible content ─────────────────────────── */}
+      <div
+        className={`overflow-hidden transition-all duration-300 ease-in-out ${
+          isExpanded ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0'
+        }`}
+      >
+        <div className="px-4 pb-3">
+          {/* ── Category tabs ────────────────────────────── */}
+          <div className="flex gap-2 mb-3">
+            <button
+              type="button"
+              onClick={() => setActiveCategory('all')}
+              className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${
+                activeCategory === 'all'
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+              }`}
+            >
+              All
+            </button>
+            {visibleCategories.map((cat) => (
+              <button
+                key={cat}
+                type="button"
+                onClick={() => setActiveCategory(cat)}
+                className={`rounded-full px-3 py-1 text-xs font-medium capitalize transition-colors ${
+                  activeCategory === cat
+                    ? 'bg-blue-600 text-white'
+                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+
+          {/* ── Scroller cards ───────────────────────────── */}
+          <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-smooth">
+            {filteredProducts.map((product) => (
+              <ProductScrollerCard key={product.id} product={product} />
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

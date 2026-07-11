@@ -101,7 +101,7 @@ export function SummaryPanel() {
   return (
     <aside className="flex flex-col rounded-none">
       {/* ── Header ─────────────────────────────────── */}
-      <div className="flex items-center gap-2 border-b border-white/30 px-4 py-3">
+      <div className="flex items-center gap-2 border-b border-slate-200 px-4 py-3">
         <h2 className="text-xs font-semibold uppercase tracking-wider text-slate-400">
           Your Workspace
         </h2>
@@ -132,7 +132,7 @@ export function SummaryPanel() {
             {slotItems.map((item) => (
               <div
                 key={item.slotKey}
-                className="flex items-center gap-2 rounded-lg border-b border-white/30 px-2 py-1.5 transition-colors last:border-b-0 hover:bg-white/50"
+                className="flex items-center gap-2 rounded-lg border-b border-slate-200 px-2 py-1.5 transition-colors last:border-b-0 hover:bg-slate-50"
               >
                 {/* Thumbnail */}
                 <div className="relative h-8 w-8 shrink-0 overflow-hidden rounded-lg bg-slate-100">
@@ -178,7 +178,7 @@ export function SummaryPanel() {
 
       {/* ── Footer (pricing + CTA) ─────────────────── */}
       {itemCount > 0 && (
-        <div className="space-y-3 border-t border-white/30 px-4 py-3">
+        <div className="space-y-3 border-t border-slate-200 px-4 py-3">
           <PriceBreakdown items={state.items} />
           <RentButton disabled={false} />
         </div>

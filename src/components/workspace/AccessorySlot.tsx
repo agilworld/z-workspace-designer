@@ -55,7 +55,7 @@ export function AccessorySlot({ label, slotKey, icon }: AccessorySlotProps) {
       <div className="flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-3 shadow-sm transition-all hover:shadow-md">
         {/* Product thumbnail with expand + double-click */}
         <div
-          className="relative h-14 w-14 shrink-0 overflow-hidden rounded-lg bg-slate-100 cursor-zoom-in group"
+          className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg bg-slate-100 cursor-zoom-in group"
           onDoubleClick={() => setModalOpen(true)}
         >
           <Image

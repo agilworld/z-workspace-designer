@@ -73,7 +73,7 @@ export function ChairBox() {
 
         {/* Product image with expand + double-click */}
         <div
-          className="relative mb-3 h-28 w-full overflow-hidden rounded-xl bg-slate-100 cursor-zoom-in group"
+          className="relative mb-3 h-40 w-full overflow-hidden rounded-xl bg-slate-100 cursor-zoom-in group"
           onDoubleClick={() => setModalOpen(true)}
         >
           <Image

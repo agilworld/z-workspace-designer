@@ -1,19 +1,24 @@
 /**
- * Layout — revamped layout with workspace at top, product scroller
- * and summary panel at the bottom in a white-bordered row.
+ * Layout — restructured layout with summary sidebar on the right,
+ * workspace + collapsible product scroller on the left.
  *
  * Structure:
  *   Header (sticky top)
- *   Title area ("Design Your Workspace!", white bg)
- *   WorkspaceArea (flex-1, full width, gradient bg)
- *   ──────────────────────────────────────────
- *   [ProductScroller (flex-1) | SummaryPanel (w-72)]  ← bottom row, white bg
+ *   Title area ("Design Your Workspace!", solid white bg)
+ *   ──────────────────────────────────────────────
+ *   [ Workspace (flex-1)           | Summary (w-80) ]
+ *   [ Scroller (shrink-0, bottom)  |                ]
+ *   ──────────────────────────────────────────────
  *
  * On screens smaller than 1024px, shows a mobile-friendly message
  * directing users to visit on desktop for the full experience.
  *
- * @status updated — revamped layout (summary to bottom, white backgrounds)
+ * @status updated — summary right sidebar, collapsible, solid white backgrounds
  */
+
+'use client';
+
+import { useState } from 'react';
 
 interface LayoutProps {
   /** Sticky header rendered at the top of the viewport. */
@@ -29,6 +34,8 @@ interface LayoutProps {
 }
 
 export function Layout({ header, workspace, summary, title, scroller }: LayoutProps) {
+  const [summaryCollapsed, setSummaryCollapsed] = useState(false);
+
   return (
     <>
       {/* ── Mobile message (<1024px) ─────────────────── */}
@@ -72,27 +79,48 @@ export function Layout({ header, workspace, summary, title, scroller }: LayoutPr
       <div className="hidden lg:flex h-screen flex-col overflow-hidden bg-gradient-to-br from-slate-50 via-blue-50/50 to-white">
         {header}
 
-        {/* ── Title area ─────────────────────────────────── */}
+        {/* ── Title area (solid white background) ────────── */}
         {title && (
           <div className="relative z-10 border-b border-slate-200 bg-white px-6 py-4 text-center">
             {title}
           </div>
         )}
 
-        {/* ── Workspace Area (full width, gradient) ──────────── */}
-        <div className="relative z-10 flex-1 overflow-y-auto bg-gradient-to-br from-slate-50 via-blue-50/50 to-white">
-          <div className="p-4">
-            {workspace}
-          </div>
-        </div>
+        {/* ── Main content row: Workspace + Scroller | Summary Sidebar ── */}
+        <div className="relative z-10 flex flex-1 overflow-hidden">
+          {/* Left column: Workspace (flex-1) + Scroller (shrink-0) */}
+          <div className="flex flex-1 flex-col overflow-hidden bg-gradient-to-br from-slate-50 via-blue-50/50 to-white">
+            {/* Workspace area */}
+            <div className="flex-1 overflow-y-auto p-4">
+              {workspace}
+            </div>
 
-        {/* ── Bottom row: Product Scroller (left) + Summary (right) ── */}
-        <div className="relative z-10 flex shrink-0 bg-white border-t border-slate-200">
-          <div className="flex-1 px-6 py-3 overflow-hidden">
-            {scroller}
+            {/* Scroller at bottom of left column */}
+            {scroller && (
+              <div className="shrink-0 border-t border-slate-200 bg-white">
+                {scroller}
+              </div>
+            )}
           </div>
-          <div className="w-72 shrink-0 border-l border-slate-200 p-4 overflow-y-auto">
-            {summary}
+
+          {/* Right sidebar: Summary (collapsible) */}
+          <div
+            className={`shrink-0 border-l border-slate-200 bg-white overflow-y-auto transition-all duration-300 ${
+              summaryCollapsed ? 'w-12' : 'w-80'
+            }`}
+          >
+            <button
+              type="button"
+              onClick={() => setSummaryCollapsed(!summaryCollapsed)}
+              className="flex w-full items-center justify-center gap-1 py-2 text-xs text-slate-500 hover:bg-slate-50 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400"
+              aria-label={summaryCollapsed ? 'Expand summary panel' : 'Collapse summary panel'}
+            >
+              <span className={`transition-transform duration-200 ${summaryCollapsed ? '' : 'rotate-180'}`}>
+                →
+              </span>
+              {summaryCollapsed ? '' : <span className="text-[10px] uppercase tracking-wider text-slate-400">Summary</span>}
+            </button>
+            {!summaryCollapsed && summary}
           </div>
         </div>
       </div>
