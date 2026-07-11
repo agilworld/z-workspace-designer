@@ -1,7 +1,7 @@
 /**
- * RentButton — primary CTA to redirect to monis.rent checkout.
+ * RentButton — primary CTA to redirect to Z.Interactive checkout.
  *
- * @status implemented
+ * @status updated — rebranded to Z.Interactive
  */
 
 interface RentButtonProps {
@@ -35,7 +35,7 @@ export function RentButton({ disabled }: RentButtonProps) {
         </button>
       </a>
 
-      <p className="text-center text-[10px] text-slate-400">Powered by monis.rent</p>
+      <p className="text-center text-[10px] text-slate-400">Powered by Z.Interactive</p>
     </div>
   );
 }

@@ -99,7 +99,7 @@ export function SummaryPanel() {
   const isEmpty = itemCount === 0;
 
   return (
-    <aside className="flex h-full flex-col rounded-3xl bg-white/70 shadow-lg shadow-blue-100/20 backdrop-blur-xl">
+    <aside className="flex flex-col rounded-none">
       {/* ── Header ─────────────────────────────────── */}
       <div className="flex items-center gap-2 border-b border-white/30 px-4 py-3">
         <h2 className="text-xs font-semibold uppercase tracking-wider text-slate-400">

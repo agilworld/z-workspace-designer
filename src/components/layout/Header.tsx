@@ -1,23 +1,21 @@
 /**
  * Header — minimal top navigation bar with branding.
  *
- * Renders the monis.rent brand name alongside "Workspace Designer".
- * Uses glass-morphism style. Actions like Clear All are now in
- * the SummaryPanel or canvas.
+ * Renders the Z.Interactive brand name alongside "Workspace Designer".
  *
- * @status updated — more minimal
+ * @status updated — rebranded to Z.Interactive
  */
 
 'use client';
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-50 border-b border-white/20 bg-white/60 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white">
       <div className="flex items-center justify-between px-6 py-3">
         {/* ── Branding ───────────────────────────────── */}
         <div className="flex items-baseline gap-3">
           <span className="text-xl font-bold tracking-tight text-slate-900">
-            monis.rent
+            Z.Interactive
           </span>
           <span className="hidden h-4 w-px bg-slate-300/60 sm:block" />
           <span className="hidden text-sm font-medium text-slate-500 sm:inline">

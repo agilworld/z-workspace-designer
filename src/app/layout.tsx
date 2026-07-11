@@ -14,9 +14,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Workspace Designer | monis.rent",
+  title: "Workspace Designer | Z.Interactive",
   description:
-    "Design your dream workspace — pick a desk, choose a chair, add monitors and accessories, then rent it all from monis.rent",
+    "Design your dream workspace — pick a desk, choose a chair, add monitors and accessories, then rent it all from Z.Interactive",
 };
 
 export default function RootLayout({

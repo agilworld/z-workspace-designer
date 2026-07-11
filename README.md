@@ -1,8 +1,8 @@
-# monis.rent — Workspace Designer
+# Z.Interactive — Workspace Designer
 
-An interactive, visual workspace designer for [monis.rent](https://www.monis.rent) — Bali's office equipment rental service for digital nomads and startups.
+An interactive, visual workspace designer for [Z.Interactive](https://www.monis.rent) — workspace equipment rental service for digital nomads and startups.
 
-Design your dream workspace by selecting desks, chairs, monitors, and accessories, then see your setup come to life on a live preview canvas. When you're happy, hit "Rent This Workspace" to complete your order on monis.rent.
+Design your dream workspace by selecting desks, chairs, monitors, and accessories, then see your setup come to life on a live preview canvas. When you're happy, hit "Rent This Workspace" to complete your order.
 
 ## Tech Stack
 
@@ -33,7 +33,7 @@ npm start
 
 ## Features
 
-- Select from 20+ real products from monis.rent
+- Select from 20+ real products from Z.Interactive
 - Visual workspace preview with drag-and-drop positioning
 - Real-time price calculation
 - Category filtering in product sidebar
@@ -46,15 +46,15 @@ npm start
 
 ## Product Data
 
-Product information is sourced from the monis.rent website. Prices shown are estimates based on published price ranges. Final pricing is determined at checkout on monis.rent.
+Product information is sourced from the monis.rent website. Prices shown are estimates based on published price ranges. Final pricing is determined at checkout.
 
 To update product data, edit `src/data/products.ts`.
 
 ## Credits
 
-- **monis.rent** — Product data and rental service
+- **Z.Interactive** — Product data and rental service
 - Product images hosted on monis.rent's Strapi CMS
 
 ## License
 
-Proprietary — built for monis.rent.
+Proprietary — built for Z.Interactive.

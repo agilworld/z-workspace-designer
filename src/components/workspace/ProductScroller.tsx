@@ -1,18 +1,20 @@
 /**
- * ProductScroller — horizontal scrolling product list at the bottom.
+ * ProductScroller — horizontal scrolling product list at the bottom
+ * with category tab filtering.
  *
- * Shows all products as small cards. Clicking a card adds it to the
+ * Shows products filtered by category tabs. Clicking a card adds it to the
  * appropriate slot based on its category.
  *
- * @status new
+ * @status updated — added category tabs
  */
 
 'use client';
 
+import { useState, useMemo } from 'react';
 import Image from 'next/image';
 import { useWorkspace } from '@/hooks/useWorkspace';
 import { products } from '@/data/products';
-import type { Product, AccessorySlotKey } from '@/types';
+import type { Product, ProductCategory, AccessorySlotKey } from '@/types';
 
 // ---------------------------------------------------------------------------
 // Mapping: product category → slot key
@@ -131,10 +133,59 @@ function ProductScrollerCard({ product }: ProductScrollerCardProps) {
 // ---------------------------------------------------------------------------
 
 export function ProductScroller() {
+  // Derive unique visible categories from products that have a slot mapping
+  const visibleCategories = useMemo(() => {
+    const cats = new Set<ProductCategory>();
+    for (const product of products) {
+      if (getSlotForProduct(product) !== null) {
+        cats.add(product.category);
+      }
+    }
+    return Array.from(cats).sort();
+  }, []);
+
+  const [activeCategory, setActiveCategory] = useState<ProductCategory | 'all'>('all');
+
+  // Filter products based on active category
+  const filteredProducts = useMemo(() => {
+    if (activeCategory === 'all') return products;
+    return products.filter((p) => p.category === activeCategory);
+  }, [activeCategory]);
+
   return (
     <div className="w-full">
+      {/* ── Category tabs ────────────────────────────── */}
+      <div className="flex gap-2 mb-3">
+        <button
+          type="button"
+          onClick={() => setActiveCategory('all')}
+          className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${
+            activeCategory === 'all'
+              ? 'bg-blue-600 text-white'
+              : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+          }`}
+        >
+          All
+        </button>
+        {visibleCategories.map((cat) => (
+          <button
+            key={cat}
+            type="button"
+            onClick={() => setActiveCategory(cat)}
+            className={`rounded-full px-3 py-1 text-xs font-medium capitalize transition-colors ${
+              activeCategory === cat
+                ? 'bg-blue-600 text-white'
+                : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+            }`}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+
+      {/* ── Scroller cards ───────────────────────────── */}
       <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-smooth">
-        {products.map((product) => (
+        {filteredProducts.map((product) => (
           <ProductScrollerCard key={product.id} product={product} />
         ))}
       </div>

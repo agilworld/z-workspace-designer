@@ -1,18 +1,18 @@
 /**
- * Layout — slot-based workspace layout with header, title, workspace+summary,
- * and bottom product scroller.
+ * Layout — revamped layout with workspace at top, product scroller
+ * and summary panel at the bottom in a white-bordered row.
  *
  * Structure:
  *   Header (sticky top)
- *   Title area ("Design Your Workspace!")
- *   ├── WorkspaceArea (flex-1, three boxes)
- *   └── SummaryPanel (w-72, glass)
- *   ProductScroller (horizontal scroll at bottom)
+ *   Title area ("Design Your Workspace!", white bg)
+ *   WorkspaceArea (flex-1, full width, gradient bg)
+ *   ──────────────────────────────────────────
+ *   [ProductScroller (flex-1) | SummaryPanel (w-72)]  ← bottom row, white bg
  *
  * On screens smaller than 1024px, shows a mobile-friendly message
  * directing users to visit on desktop for the full experience.
  *
- * @status updated — slot-based layout
+ * @status updated — revamped layout (summary to bottom, white backgrounds)
  */
 
 interface LayoutProps {
@@ -36,7 +36,7 @@ export function Layout({ header, workspace, summary, title, scroller }: LayoutPr
         <div className="mx-auto max-w-sm animate-fadeIn">
           {/* Branding */}
           <div className="mb-8">
-            <span className="text-2xl font-bold text-slate-900">monis.rent</span>
+            <span className="text-2xl font-bold text-slate-900">Z.Interactive</span>
           </div>
 
           {/* Illustration placeholder */}
@@ -56,7 +56,7 @@ export function Layout({ header, workspace, summary, title, scroller }: LayoutPr
           </p>
 
           <p className="text-xs text-slate-400">
-            Pick your desk, chair, and accessories — then rent it all with monis.rent
+            Pick your desk, chair, and accessories — then rent it all with Z.Interactive
           </p>
 
           {/* Decorative dots */}
@@ -69,42 +69,32 @@ export function Layout({ header, workspace, summary, title, scroller }: LayoutPr
       </div>
 
       {/* ── Desktop layout (≥1024px) ─────────────────── */}
-      <div className="hidden lg:flex h-screen flex-col overflow-hidden">
-        {/* ── Decorative background shapes ──────────── */}
-        <div className="pointer-events-none fixed inset-0 overflow-hidden">
-          <div className="absolute -top-40 -right-20 h-[500px] w-[500px] rounded-full bg-blue-200/30 blur-3xl" />
-          <div className="absolute -bottom-32 -left-20 h-[400px] w-[400px] rounded-full bg-cyan-200/20 blur-3xl" />
-          <div className="absolute top-1/3 right-1/4 h-[300px] w-[300px] rounded-full bg-blue-100/20 blur-2xl" />
-        </div>
-
+      <div className="hidden lg:flex h-screen flex-col overflow-hidden bg-gradient-to-br from-slate-50 via-blue-50/50 to-white">
         {header}
 
         {/* ── Title area ─────────────────────────────────── */}
         {title && (
-          <div className="relative z-10 border-b border-white/30 bg-white/30 px-6 py-4 text-center backdrop-blur-sm">
+          <div className="relative z-10 border-b border-slate-200 bg-white px-6 py-4 text-center">
             {title}
           </div>
         )}
 
-        {/* ── Main content: Workspace + Summary ──────────── */}
-        <div className="relative z-10 flex flex-1 overflow-hidden">
-          {/* ── Workspace Area ──────────────────────────── */}
-          <div className="flex-1 p-4 overflow-y-auto">
+        {/* ── Workspace Area (full width, gradient) ──────────── */}
+        <div className="relative z-10 flex-1 overflow-y-auto bg-gradient-to-br from-slate-50 via-blue-50/50 to-white">
+          <div className="p-4">
             {workspace}
-          </div>
-
-          {/* ── Summary ─────────────────────────────────── */}
-          <div className="w-72 shrink-0 p-4 pl-0">
-            {summary}
           </div>
         </div>
 
-        {/* ── Product Scroller (bottom) ──────────────────── */}
-        {scroller && (
-          <div className="relative z-10 border-t border-white/30 bg-white/30 px-6 py-3 backdrop-blur-sm">
+        {/* ── Bottom row: Product Scroller (left) + Summary (right) ── */}
+        <div className="relative z-10 flex shrink-0 bg-white border-t border-slate-200">
+          <div className="flex-1 px-6 py-3 overflow-hidden">
             {scroller}
           </div>
-        )}
+          <div className="w-72 shrink-0 border-l border-slate-200 p-4 overflow-y-auto">
+            {summary}
+          </div>
+        </div>
       </div>
     </>
   );
